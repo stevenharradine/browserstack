@@ -1,0 +1,13 @@
+---
+dependencies:
+  - role: meta/monitor
+    monitor_name: browserstack
+  - role: package/logrotate
+    logrotate_name: browserstack
+
+# New logging method awaiting browserstack regex formatting
+#   - role: package/fluentd
+#     fluentd_sources:
+#       - path: "{{ browserstack_log_path }}"
+#         format: ''
+#         tag: browserstack.service

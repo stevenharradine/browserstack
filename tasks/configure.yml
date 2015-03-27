@@ -1,0 +1,23 @@
+---
+- name: "Directory Exists | {{ browserstack_runtime_root }}"
+  file:
+    state: directory
+    path: "{{ browserstack_runtime_root }}"
+    owner: "{{ browserstack_user }}"
+    group: wcmetrics
+    mode: 0775
+  tags:
+    - directory-structure
+    - runtime-data
+    - browserstack
+
+- name: Upload initscript | browserstack
+  template:
+    src: etc/init.d/browserstack
+    dest: /etc/init.d/browserstack
+    owner: root
+    group: wcmetrics
+    mode: 0755
+  tags:
+    - custom-initscript
+    - browserstack

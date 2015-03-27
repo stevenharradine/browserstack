@@ -1,0 +1,7 @@
+---
+- name: Reload Service | browserstack
+  service:
+    state: reloaded
+    name: browserstack
+  tags:
+    - disruptive

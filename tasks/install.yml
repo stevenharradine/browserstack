@@ -1,0 +1,42 @@
+---
+- name: "Directory Exists | {{ browserstack_install_path }}"
+  file:
+    state: directory
+    path: "{{ browserstack_install_path }}"
+    owner: root
+    group: wcadmin
+    mode: 0775
+  tags:
+    - directory-structure
+    - software-installation
+    - browserstack
+
+- name: Download File | BrowserStackLocal
+  get_url:
+    url: https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip
+    dest: "{{ browserstack_install_path }}"
+    mode: 0755
+  tags:
+    - assumes-trust
+    - software-installation
+    - using-blob
+    - browserstack
+
+- name: Unzip Installation
+  apt:
+    name: unzip
+    state: latest
+  tags:
+    - unzip
+
+- name: Unpack | BrowserStackLocal-linux-x64.zip
+  unarchive:
+    copy: no
+    src: "{{ browserstack_install_path }}/BrowserStackLocal-linux-x64.zip"
+    dest: "{{ browserstack_install_path }}"
+    creates: "{{ browserstack_install_path}}/BrowserStackLocal"
+  tags:
+    - assumes-trust
+    - software-installation
+    - using-blob
+    - browserstack

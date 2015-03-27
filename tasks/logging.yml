@@ -1,0 +1,12 @@
+---
+- name: "Directory Exists | {{ browserstack_log_path }}"
+  file:
+    state: directory
+    path: "{{ browserstack_log_path }}"
+    owner: "{{ browserstack_user }}"
+    group: wcmetrics
+    mode: 0775
+  tags:
+    - directory-structure
+    - logging
+    - browserstack

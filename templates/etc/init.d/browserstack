@@ -1,0 +1,40 @@
+#!/bin/bash
+
+PID_FILE='{{ browserstack_pidfile_path }}'
+LOG_FILE='{{ browserstack_log_path }}'
+BINARY_FILE='{{ browserstack_install_path }}/BrowserStackLocal'
+PROXY_HOST='{{ browserstack_proxy_host }}'
+PROXY_PORT= '{{ browserstack_proxy_port }}'
+API_KEY= '{{ browserstack_api_key }}'
+SERVER_LIST= '{{ browserstack_server_list }}'
+COMMAND="${BINARY_FILE} ${API_KEY} ${SERVER_LIST} -proxyHost ${PROXY_HOST} -proxyPort ${PROXY_PORT} -onlyAutomate -v"
+
+start() {
+        ${COMMAND} 1>${LOG_FILE} 2>&1 &
+        echo $! > ${PID_FILE}
+        return
+}
+
+stop() {
+        kill `cat ${PID_FILE}`
+        rm ${PID_FILE}
+        return
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: {start|stop|restart}"
+        exit 1
+        ;;
+esac
+exit $?

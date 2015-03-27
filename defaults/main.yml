@@ -1,0 +1,15 @@
+---
+browserstack_user: root
+
+browserstack_log_root: "{{ log_root | default('/var/log') }}/browserstack"
+browserstack_log_path: "{{ browserstack_log_root }}/browserstack.log"
+
+browserstack_runtime_root: "{{ runtime_root | default('/var/run') }}/browserstack"
+browserstack_pidfile_path: "{{ browserstack_runtime_root }}/browserstack.pid"
+
+browserstack_install_path: /opt/browserstack
+
+browserstack_proxy_port: ''
+browserstack_proxy_host: ''
+browserstack_api_key: ''
+browserstack_server_list: ''
